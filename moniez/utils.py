@@ -25,7 +25,8 @@ def initiate_consent(phone_number, tracking_id):
     headers = HEADERS
 
     response = requests.request("POST", url, headers=headers, data=payload)
-
+    if response.status_code == 400:
+        return "Something went Wrong"
     result = json.loads(response.text)
     print(result['trackingId'])
     fetch_consent_status(result['trackingId'],result['referenceId'])
@@ -40,7 +41,8 @@ def fetch_consent_status(tracking_id, reference_id):
     headers = HEADERS
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    if response.status_code == 400:
+        return "Something went Wrong"
     print(response.text)
     return response.text
 
@@ -53,7 +55,8 @@ def fetch_data(tracking_id, reference_id):
     headers = HEADERS
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    if response.status_code == 400:
+        return "Something went Wrong"
     print(response.text)
     return response.text
 def fetch_analytics_data(tracking_id, reference_id):
@@ -64,7 +67,8 @@ def fetch_analytics_data(tracking_id, reference_id):
     headers = HEADERS
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    if response.status_code == 400:
+        return "Something went Wrong"
     print(response.text)
     return response.text
 
@@ -77,6 +81,7 @@ def fetch_fips():
     headers = HEADERS
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    if response.status_code == 400:
+        return "Something went Wrong"
     print(response.text)
     return response.text
