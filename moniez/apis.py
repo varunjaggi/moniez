@@ -9,11 +9,12 @@ class RecommendationView(APIView):
     """ FETCH CLIENT DATA AND RECOMMEND Stocks data with label of the user """
     def get(self, request, format=None):
         #fetch data against user token
-        
+        # found data in CSV with 3 caps
         return Response(True)
 
 class AllStocks(APIView):
     def get ():
+        # return all stocks and render  
         return Response(True)
 class SpendTracker(APIView):
     """Fetch Credit to Debit Ratio and pass on array for graph"""
@@ -54,7 +55,6 @@ class InitiateConsent(APIView):
     """TO INITIATE CONSENT FOR A CLIENT"""
     def post(self,request):
         # USER TOKEN ONLY
-
         #FETCH CLIENT PHONE NUMBER from DB against User token
         mock_data = [9987600001,9987600002,9987600003,9987600004,9987600005] 
         phone_number = 9987600002
@@ -83,5 +83,19 @@ class FetchConsent(APIView):
         consent_result = fetch_consent_status(tracking_id,ref_id)
         print(consent_result)
         return Response(data=consent_result)
+
+class FetchData(APIView):
+    """ Fetch data here post consent and dump in DB """
+    ## Against user 
+    ## Credit to debit 
+    ## their Portfoio
+    ## their Bank statemnet 
+    ## dump useful data
+
+    def get(self,request):
+        return Response()
+    
+
+
 
 
