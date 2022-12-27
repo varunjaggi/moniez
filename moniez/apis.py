@@ -94,7 +94,58 @@ class FetchData(APIView):
 
     def get(self,request):
         return Response()
-    
+
+
+
+"""
+It’s also super easy. To install the Yahoo_fin library just run the command:
+
+pip install yahoo_fin
+If you ever need to upgrade in the future just run:
+
+pip install yahoo_fin --upgrade
+Yahoo_fin also has a few dependencies:
+
+ftplib
+io
+pandas
+requests
+requests_html
+Besides requests_html, these should all come pre-installed with Anaconda.
+
+To install requests_html, it’s as easy as:
+
+pip install requests_html
+Note requests_html requires Python 3.6+ to function. You don’t need it to use the majority of the functionality in Yahoo_fin, but there are a few functions you won’t be able to use without it. We’ll highlight which functions depend on it in a sec.
+
+Other than that, that’s it! You’re ready to get started!
+
+Library Layout
+Just before we start looking at specific useful examples, let’s quickly go over the layout of the Yahoo_fin library.
+
+Yahoo_fin has two modules- stock_info and options.
+
+stock_info has the following methods:
+
+get_analysts_info()
+get_balance_sheet()
+get_cash_flow()
+get_data()
+get_day_gainers()
+get_day_losers()
+get_day_most_active()
+get_holders()
+get_income_statement()
+get_live_price()
+get_quote_table()
+get_top_crypto()
+get_stats()
+get_stats_valuation()
+tickers_dow()
+tickers_nasdaq()
+tickers_other()
+tickers_sp500()
+"""
 
 
 
