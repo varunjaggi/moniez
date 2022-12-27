@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from moniez.apis import InitiateConsent
+from moniez.apis import FetchConsent
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("initiate-consent",InitiateConsent.as_view()),
+    path("fetch-consent",FetchConsent.as_view())
 ]

@@ -1,5 +1,11 @@
 import requests
 import json
+# Program to generate a random number between 0 and 9
+
+# importing the random module
+import random
+
+print()
 
 ##DEFINED CONSTANT TO HAVE LESS CODE REPEATATION 
 MAIN_URL = "https://hackathon.pirimidtech.com/hackathon"
@@ -9,6 +15,15 @@ HEADERS = {
     'Content-Type': 'application/json',
     'API_KEY': API_KEY
     }
+
+def generate_tracking_id():
+    tracking_id = random.randint(1000,10000000)
+    print("random number is ", tracking_id)
+    return tracking_id
+def fetch_tracking_refrence_id():
+    return True
+def generate_redirection_url():
+    return
 
 def initiate_consent(phone_number, tracking_id):
     """Phone number | Tracking id"""
@@ -20,18 +35,18 @@ def initiate_consent(phone_number, tracking_id):
     "vuaId": str(phone_number)+"@dashboard-aa-uat",
     "templateType": "ONETIME",
     "trackingId": tracking_id,
-    "redirectionUrl": "https://baseurl.com"
+    "redirectionUrl": "https://baseurl.com/profile"
     })
     headers = HEADERS
 
     response = requests.request("POST", url, headers=headers, data=payload)
     if response.status_code == 400:
-        return "Something went Wrong"
+        return False
     result = json.loads(response.text)
     print(result['trackingId'])
-    fetch_consent_status(result['trackingId'],result['referenceId'])
-    fetch_data(result['trackingId'],result['referenceId'])
-    return response.text
+    # fetch_consent_status(result['trackingId'],result['referenceId'])
+    # fetch_data(result['trackingId'],result['referenceId'])
+    return result
 
 
 def fetch_consent_status(tracking_id, reference_id):
