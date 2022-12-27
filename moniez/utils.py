@@ -4,6 +4,8 @@ import json
 
 # importing the random module
 import random
+from yahoo_fin.stock_info import get_data, tickers_sp500, tickers_nasdaq, tickers_other, get_quote_table, get_live_price
+
 
 print()
 
@@ -14,9 +16,14 @@ HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'API_KEY': API_KEY
-    }
+    
+} 
+def fetch_price(stock_name):
+    stock_name = stock_name +".NS"
+    res = get_live_price(stock_name)
+    return res
 
-def generate_tracking_id():
+def generate_trcking_id():
     tracking_id = random.randint(1000,10000000)
     print("random number is ", tracking_id)
     return tracking_id

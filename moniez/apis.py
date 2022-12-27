@@ -15,6 +15,11 @@ class RecommendationView(APIView):
 class AllStocks(APIView):
     def get ():
         # return all stocks and render  
+        res = {
+            "stock": "",
+            "Label": "",
+            "Price" : ""
+        }
         return Response(True)
 class SpendTracker(APIView):
     """Fetch Credit to Debit Ratio and pass on array for graph"""
