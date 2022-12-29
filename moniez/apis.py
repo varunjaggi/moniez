@@ -1,9 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from moniez.utils import fetch_price
+from moniez.stocks_data import LARGE_CAP,MID_CAP,SMALL_CAP
 from moniez.utils import fetch_consent_status
 from moniez.utils import fetch_tracking_refrence_id
 
 from moniez.utils import generate_tracking_id, initiate_consent
+
 
 class RecommendationView(APIView):
     """ FETCH CLIENT DATA AND RECOMMEND Stocks data with label of the user """
@@ -13,14 +16,21 @@ class RecommendationView(APIView):
         return Response(True)
 
 class AllStocks(APIView):
-    def get ():
-        # return all stocks and render  
+    def get (self, request):
+        data = "Something went wrong"
         res = {
-            "stock": "",
-            "Label": "",
-            "Price" : ""
+            "data" : data
         }
-        return Response(True)
+        if request.data['cap']=="LARGE_CAP":
+            data = LARGE_CAP
+        if request.data['cap']=="MID_CAP":
+            data= MID_CAP
+        if request.data['cap']=="SMALL_CAP":
+            data = SMALL_CAP
+        # return all stocks and render
+        return Response({
+            "data":data
+        })
 class SpendTracker(APIView):
     """Fetch Credit to Debit Ratio and pass on array for graph"""
     def get(self,request):
@@ -39,7 +49,11 @@ class Profile(APIView):
     # Show overall Credit to Debit Ratio
 
     def get(self, request):
-        return Response(True)
+        res = {
+            "Name":"Varun Jaggi",
+            "HEHE" : "HEHE"
+        }
+        return Response(res)
 
 class CreateWealth(APIView):
     ## Custom percentage of their Bank balance

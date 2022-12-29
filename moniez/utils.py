@@ -18,12 +18,18 @@ HEADERS = {
     'API_KEY': API_KEY
     
 } 
+
+# def fetch_stocks_cap(cap):
+#     stocks_array = []
+#     for i in STOCKS:
+#         print (i["Column4"])
+    
 def fetch_price(stock_name):
     stock_name = stock_name +".NS"
     res = get_live_price(stock_name)
     return res
 
-def generate_trcking_id():
+def generate_tracking_id():
     tracking_id = random.randint(1000,10000000)
     print("random number is ", tracking_id)
     return tracking_id

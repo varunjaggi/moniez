@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from moniez.apis import InitiateConsent
 from moniez.apis import FetchConsent
+from moniez.apis import AllStocks
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("initiate-consent",InitiateConsent.as_view()),
-    path("fetch-consent",FetchConsent.as_view())
+    path("fetch-consent",FetchConsent.as_view()),
+    path("allstocks",AllStocks.as_view())
 ]
