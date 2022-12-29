@@ -98,7 +98,8 @@ def fetch_analytics_data(tracking_id, reference_id):
     if response.status_code == 400:
         return "Something went Wrong"
     print(response.text)
-    return response.text
+    result = json.loads(response.text)
+    return result
 
 
 def fetch_fips():
