@@ -59,6 +59,12 @@ class RecommendationView(APIView):
             return Response({"data": recommendations})
 
 
+class CreditDebitRatioMonthly(APIView):
+    """Monthly Credit to Debit Ratio"""
+    def get():
+        
+        ratio =["1.23",]
+        month =["5",]
 class AllStocks(APIView):
     def get(self, request):
         data = "Something went wrong"
