@@ -73,10 +73,11 @@ class Portfolio(APIView):
 class InitiateConsent(APIView):
     """TO INITIATE CONSENT FOR A CLIENT"""
     def post(self,request):
+        phone_number= request.data['phonenumber']
         # USER TOKEN ONLY
         #FETCH CLIENT PHONE NUMBER from DB against User token
-        mock_data = [9987600001,9987600002,9987600003,9987600004,9987600005] 
-        phone_number = 9987600002
+        # mock_data = [9987600001,9987600002,9987600003,9987600004,9987600005] 
+        # phone_number = 9987600002
         # check if consent already exist?
 
         # PUNCH CONSENT 
