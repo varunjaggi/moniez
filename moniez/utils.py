@@ -61,7 +61,19 @@ def initiate_consent(phone_number, tracking_id):
     # fetch_data(result['trackingId'],result['referenceId'])
     return result
 
-
+def avg_debit_amount_month(tracking_id,refrence_id):
+    data = fetch_analytics_data(tracking_id=tracking_id,reference_id=refrence_id)
+    data=data["analytics"]["overallAnalysis"]["monthlyAnalytics"]
+    month = []
+    avg_debit_amount = []
+    for i in data:
+        month.append(i["month"])
+        avg_debit_amount.append(i["avgDebitAmount"])
+    res ={
+        "month":month,
+        "avg_debit_amount":avg_debit_amount
+    }
+    return res
 def fetch_consent_status(tracking_id, reference_id):
     """Used to fetch status of the consent here"""
     url = MAIN_URL+"/consent/status?referenceId="+str(reference_id)+"&trackingId="+str(tracking_id)
