@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from moniez.utils import avg_debit_amount_month
+from moniez.utils import avg_debit_amount_month,category_wise
 from moniez.utils import fetch_price
 from moniez.stocks_data import LARGE_CAP,MID_CAP,SMALL_CAP
 from moniez.utils import fetch_consent_status
@@ -20,11 +20,18 @@ class CreditDebitRatioMonthly(APIView):
     """Monthly Credit to Debit Ratio"""
     def get(self,request):
         tracking_id= request.data["tracking_id"]    
-        refrence_id = request.data["reference_id"]
-        data = avg_debit_amount_month(tracking_id=tracking_id,refrence_id=refrence_id)
+        reference_id = request.data["reference_id"]
+        data = avg_debit_amount_month(tracking_id=tracking_id,reference_id=reference_id)
         return Response({
             "data":data
         })
+class CategoryWise(APIView):
+    """Category wise"""
+    def get(self,request):
+        tracking_id= request.data["tracking_id"]    
+        refrence_id = request.data["reference_id"]
+        data = category_wise(tracking_id=tracking_id,reference_id=refrence_id)
+        return Response(data)
 class AllStocks(APIView):
     def get (self, request):
         data = "Something went wrong"

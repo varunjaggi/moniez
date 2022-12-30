@@ -61,8 +61,8 @@ def initiate_consent(phone_number, tracking_id):
     # fetch_data(result['trackingId'],result['referenceId'])
     return result
 
-def avg_debit_amount_month(tracking_id,refrence_id):
-    data = fetch_analytics_data(tracking_id=tracking_id,reference_id=refrence_id)
+def avg_debit_amount_month(tracking_id,reference_id):
+    data = fetch_analytics_data(tracking_id=tracking_id,reference_id=reference_id)
     data=data["analytics"]["overallAnalysis"]["monthlyAnalytics"]
     month = []
     avg_debit_amount = []
@@ -74,6 +74,29 @@ def avg_debit_amount_month(tracking_id,refrence_id):
         "avg_debit_amount":avg_debit_amount
     }
     return res
+def category_wise(tracking_id,reference_id):
+    data = fetch_analytics_data(tracking_id=tracking_id,reference_id=reference_id)
+    data = data["analytics"]["completeCategoryWiseAnalysis"]["overallCategoryWiseAnalysis"]
+    Entertainment = data["Entertainment"]["totalDebitAmount"]
+    Transportation = data["Transportation"]["totalDebitAmount"]
+    # Alcohol = data["Alcohol"]["totalDebitAmount"]
+    EMIs = data["EMIs"]["totalDebitAmount"]
+    Utilities = data["Utilities"]["totalDebitAmount"]
+    Wallet = data["Transfer to Wallet"]["totalDebitAmount"]
+    Cash= data["CASH Withdrawals"]["totalDebitAmount"]
+    tot_sum= Entertainment+Transportation+EMIs+Utilities+Wallet+Cash
+    
+    res={
+        "Entertainment": round((Entertainment/tot_sum)*100,2),
+        "Transportation": round((Transportation/tot_sum)*100,2),
+        "EMIs":round((EMIs/tot_sum)*100,2),
+        "Utilities":round((Utilities/tot_sum)*100,2),
+        "Wallet":round((Wallet/tot_sum)*100,2),
+        "Cash":round((Cash/tot_sum)*100,2)
+    }
+    return res
+
+
 def fetch_consent_status(tracking_id, reference_id):
     """Used to fetch status of the consent here"""
     url = MAIN_URL+"/consent/status?referenceId="+str(reference_id)+"&trackingId="+str(tracking_id)
