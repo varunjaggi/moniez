@@ -3,10 +3,16 @@ from rest_framework.response import Response
 from moniez.utils import avg_debit_amount_month, current_investment, category_wise
 from moniez.utils import fetch_price
 from moniez.stocks_data import LARGE_CAP, MID_CAP, SMALL_CAP
-from moniez.recommendations import LOW_RISK, MID_RISK, HIGH_RISK, VERY_HIGH_RISK
+from moniez.recommendations import (
+    LOW_RISK,
+    MID_RISK,
+    HIGH_RISK,
+    VERY_LOW_RISK,
+    ALL_INVESTMENT_OPTIONS,
+)
 from moniez.utils import fetch_consent_status
 from moniez.utils import fetch_tracking_refrence_id
-from moniez.utils import fetch_analytics_data
+from moniez.utils import fetch_analytics_data, profile
 
 
 from moniez.utils import generate_tracking_id, initiate_consent
@@ -20,9 +26,9 @@ class RecommendationView(APIView):
 
         # if low, rav = 0.33, medium = 0.67, high = 0.9
 
-        risk_appetite_value = request.data.risk_appetite_value
-        tracking_id = request.data.tracking_id
-        reference_id = request.data.reference_id
+        risk_appetite_value = request.data["risk_appetite_value"]
+        tracking_id = request.data["tracking_id"]
+        reference_id = request.data["reference_id"]
 
         response = fetch_analytics_data(tracking_id, reference_id)
 
@@ -30,31 +36,46 @@ class RecommendationView(APIView):
             "creditDebitRatio"
         ]
 
-        debit_to_credit_ratio = 1 - credit_to_debit_ratio
+        if credit_to_debit_ratio is None:
 
-        if debit_to_credit_ratio is None:
             average_risk_score = risk_appetite_value
 
-        average_risk_score = (debit_to_credit_ratio + risk_appetite_value) / 2
+        else:
+            debit_to_credit_ratio = 1 - credit_to_debit_ratio
 
-        data = VERY_HIGH_RISK
+            average_risk_score = (debit_to_credit_ratio + risk_appetite_value) / 2
+
+        data = HIGH_RISK
 
         if average_risk_score >= 0 and average_risk_score < 0.3:
             # equity, large cap crypto, stocks
-            data = VERY_HIGH_RISK
+            data = HIGH_RISK
 
         elif average_risk_score >= 0.3 and average_risk_score < 0.5:
             # equity + hybrid, nft, defi and metaverse, stocks
-            data = HIGH_RISK
+            data = MID_RISK
 
         elif average_risk_score >= 0.5 and average_risk_score < 0.8:
             # hybrid + debt, rd, fd, ppf, nps
-            data = MID_RISK
+            data = LOW_RISK
 
         elif average_risk_score >= 0.8 and average_risk_score < 1:
             # rd, ppf
-            data = LOW_RISK
+            data = VERY_LOW_RISK
 
+        return Response({"data": data})
+
+
+class InvestmentOptions(APIView):
+    def get(self, request):
+        return Response({"data": ALL_INVESTMENT_OPTIONS})
+
+
+class Profile(APIView):
+    def post(self, request):
+        tracking_id = request.data["tracking_id"]
+        reference_id = request.data["reference_id"]
+        data = profile(tracking_id=tracking_id, reference_id=reference_id)
         return Response({"data": data})
 
 
@@ -89,13 +110,6 @@ class CurrentInvestment(APIView):
         return Response(data)
 
 
-# class CurrentInvestment(APIView):
-#     """Category wise"""
-#     def get(self,request):
-#         tracking_id= request.data["tracking_id"]
-#         refrence_id = request.data["reference_id"]
-#         data = category_wise(tracking_id=tracking_id,reference_id=refrence_id)
-#         return Response(data)
 class CategoryWise(APIView):
     """Category wise"""
 
@@ -132,18 +146,6 @@ class TaxSaving(APIView):
 
     def get(self, request):
         return Response(True)
-
-
-class Profile(APIView):
-    """Pass on user profile data"""
-
-    # net worth
-    # name
-    # Show overall Credit to Debit Ratio
-
-    def get(self, request):
-        res = {"Name": "Varun Jaggi", "HEHE": "HEHE"}
-        return Response(res)
 
 
 class CreateWealth(APIView):
