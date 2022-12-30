@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from moniez.utils import avg_debit_amount_month,category_wise
+from moniez.utils import avg_debit_amount_month,current_investment,category_wise
 from moniez.utils import fetch_price
 from moniez.stocks_data import LARGE_CAP,MID_CAP,SMALL_CAP
 from moniez.utils import fetch_consent_status
@@ -25,6 +25,28 @@ class CreditDebitRatioMonthly(APIView):
         return Response({
             "data":data
         })
+class Stock(APIView):
+    """Stock wise"""
+    def get(self,request):
+        stockname= request.data["stockname"]
+        res={
+            "current_price":fetch_price(stock_name=stockname)
+        }
+        return Response(res)
+class CurrentInvestment(APIView):
+    """Category wise"""
+    def get(self,request):
+        tracking_id= request.data["tracking_id"]    
+        refrence_id = request.data["reference_id"]
+        data = current_investment(tracking_id=tracking_id,reference_id=refrence_id)
+        return Response(data)
+# class CurrentInvestment(APIView):
+#     """Category wise"""
+#     def get(self,request):
+#         tracking_id= request.data["tracking_id"]    
+#         refrence_id = request.data["reference_id"]
+#         data = category_wise(tracking_id=tracking_id,reference_id=refrence_id)
+#         return Response(data)
 class CategoryWise(APIView):
     """Category wise"""
     def get(self,request):
