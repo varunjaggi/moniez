@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from moniez.utils import fetch_price
 from moniez.stocks_data import LARGE_CAP, MID_CAP, SMALL_CAP
+from moniez.recommendations import LOW_RISK, MID_RISK, HIGH_RISK, VERY_HIGH_RISK
 from moniez.utils import fetch_consent_status
 from moniez.utils import fetch_tracking_refrence_id
 from moniez.utils import fetch_analytics_data
@@ -35,36 +36,40 @@ class RecommendationView(APIView):
 
         average_risk_score = (debit_to_credit_ratio + risk_appetite_value) / 2
 
-        recommendations = {
-            "mutual_funds": [],
-            "stocks": [],
-            "crypto": [],
-            "bonds": [],
-            "fd": [],
-            "rd": [],
-            "ppf": [],
-            "nps": [],
-        }
+        data = VERY_HIGH_RISK
 
         if average_risk_score >= 0 and average_risk_score < 0.3:
-            return Response({"data": recommendations})
+            # equity, large cap crypto, stocks
+            data = VERY_HIGH_RISK
 
         elif average_risk_score >= 0.3 and average_risk_score < 0.5:
-            return Response({"data": recommendations})
+            # equity + hybrid, nft, defi and metaverse, stocks
+            data = HIGH_RISK
 
         elif average_risk_score >= 0.5 and average_risk_score < 0.8:
-            return Response({"data": recommendations})
+            # hybrid + debt, rd, fd, ppf, nps
+            data = MID_RISK
 
         elif average_risk_score >= 0.8 and average_risk_score < 1:
-            return Response({"data": recommendations})
+            # rd, ppf
+            data = LOW_RISK
+
+        return Response({"data": data})
 
 
 class CreditDebitRatioMonthly(APIView):
     """Monthly Credit to Debit Ratio"""
+
     def get():
-        
-        ratio =["1.23",]
-        month =["5",]
+
+        ratio = [
+            "1.23",
+        ]
+        month = [
+            "5",
+        ]
+
+
 class AllStocks(APIView):
     def get(self, request):
         data = "Something went wrong"
