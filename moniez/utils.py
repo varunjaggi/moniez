@@ -90,6 +90,17 @@ def profile(tracking_id, reference_id):
     }
 
     return res
+def avg_eod_balance(tracking_id, reference_id):
+    data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
+    data = data["analytics"]["abbTables"]["overall"]["monthlyData"]
+    months =[]
+    avg_eod_balance_values=[]
+    
+    res = {
+        "data":data
+    }
+
+    return res
 
 
 def avg_debit_amount_month(tracking_id, reference_id):
