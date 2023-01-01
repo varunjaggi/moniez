@@ -97,7 +97,7 @@ def avg_eod_balance(tracking_id, reference_id):
     eod_balance_values=[]
     for i in data:
         months.append(i["month"])
-        eod_balance_values.append(i["eodBalTotal"])
+        eod_balance_values.append(round(i["eodBalTotal"],0))
     
     res = {
         "months":months,
