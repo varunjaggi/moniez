@@ -94,10 +94,14 @@ def avg_eod_balance(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
     data = data["analytics"]["abbTables"]["overall"]["monthlyData"]
     months =[]
-    avg_eod_balance_values=[]
+    eod_balance_values=[]
+    for i in data:
+        months.append(i["month"])
+        eod_balance_values.append(i["eodBalTotal"])
     
     res = {
-        "data":data
+        "months":months,
+        "eod_balance_values":eod_balance_values
     }
 
     return res
