@@ -136,6 +136,7 @@ def current_investment(tracking_id, reference_id):
             "crypto": crypto,
             "Stocks": Stocks,
             "Commodities": Commodities,
+            "total_sum": round(mutual_fund+crypto+Stocks+Commodities,0)
         }
     except:
         pass
