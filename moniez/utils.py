@@ -120,15 +120,24 @@ def avg_debit_amount_month(tracking_id, reference_id):
 
 def current_investment(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
-    data = data["analytics"]["investmentAnalysis"]["investmentSubCategoryAnalysis"]
-    # mutual_fund = data["Mutual Funds"]["overallInvestmentAnalysis"]["totalDebitAmount"]
-    # crypto = data["Crypto Currency"]["overallInvestmentAnalysis"]["totalDebitAmount"]
-    # Stocks= data["Stocks & Options"]["overallInvestmentAnalysis"]["totalDebitAmount"]
-    # Commodities = data["Commodities"]["overallInvestmentAnalysis"]["totalDebitAmount"]
-
     res = {
-        "mutual_fund": data,
+        "data":""
     }
+    try:
+        data = data["analytics"]["investmentAnalysis"]["investmentSubCategoryAnalysis"] 
+        mutual_fund = data["Mutual Funds"]["overallInvestmentAnalysis"]["totalDebitAmount"] 
+        crypto = data["Crypto Currency"]["overallInvestmentAnalysis"]["totalDebitAmount"]
+        Stocks= data["Stocks & Options"]["overallInvestmentAnalysis"]["totalDebitAmount"] 
+        Commodities = data["Commodities"]["overallInvestmentAnalysis"]["totalDebitAmount"] 
+        res = {
+            "mutual_fund": mutual_fund,
+            "crypto":crypto,
+            "Stocks":Stocks,
+            "Commodities":Commodities
+
+        }
+    except:
+        pass
     return res
 
 
