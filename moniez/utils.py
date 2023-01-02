@@ -81,8 +81,30 @@ def initiate_consent(phone_number, tracking_id):
 def profile(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
     data = data["accounts"][0]["data"]["Profile"]["Holders"]["Holder"]
+    bank_accounf =  data["accounts"][0]["data"]["maskedAccNumber"]
+    bank_balance = data["accounts"][0]["data"]["Summary"]["currentBalance"]
+    res = {
+        "data":data,
+        "bank_account":bank_accounf,
+        "balance":bank_balance
+    }
 
-    return data
+    return res
+def avg_eod_balance(tracking_id, reference_id):
+    data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
+    data = data["analytics"]["abbTables"]["overall"]["monthlyData"]
+    months =[]
+    eod_balance_values=[]
+    for i in data:
+        months.append(i["month"])
+        eod_balance_values.append(round(i["eodBalTotal"],0))
+    
+    res = {
+        "months":months,
+        "eod_balance_values":eod_balance_values
+    }
+
+    return res
 
 
 def avg_debit_amount_month(tracking_id, reference_id):
@@ -92,10 +114,9 @@ def avg_debit_amount_month(tracking_id, reference_id):
     avg_debit_amount = []
     for i in data:
         month.append(i["month"])
-        avg_debit_amount.append(i["avgDebitAmount"])
+        avg_debit_amount.append(round(i["avgDebitAmount"],0))
     res = {"month": month, "avg_debit_amount": avg_debit_amount}
     return res
-
 
 def current_investment(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)

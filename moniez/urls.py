@@ -25,6 +25,7 @@ from moniez.apis import (
     RecommendationView,
     InvestmentOptions,
     Profile,
+    EODMonthBalance
 )
 
 urlpatterns = [
@@ -38,4 +39,5 @@ urlpatterns = [
     path("categorywise", CategoryWise.as_view()),
     path("currentinvestment", CurrentInvestment.as_view()),
     path("profile", Profile.as_view()),
+    path("eodmonthbalance",EODMonthBalance.as_view())
 ]
