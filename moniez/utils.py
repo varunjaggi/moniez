@@ -80,9 +80,9 @@ def initiate_consent(phone_number, tracking_id):
 
 def profile(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
-    data = data["accounts"][0]["data"]["Profile"]["Holders"]["Holder"]
-    bank_accounf =  data["accounts"][0]["data"]["maskedAccNumber"]
-    bank_balance = data["accounts"][0]["data"]["Summary"]["currentBalance"]
+    data = data["accounts"]["data"]["Profile"]["Holders"]["Holder"]
+    bank_accounf =  data["accounts"]["data"]["maskedAccNumber"]
+    bank_balance = data["accounts"]["data"]["Summary"]["currentBalance"]
     res = {
         "data":data,
         "bank_account":bank_accounf,
