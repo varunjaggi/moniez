@@ -1,6 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from moniez.utils import avg_debit_amount_month, current_investment, category_wise,avg_eod_balance
+from moniez.utils import (
+    avg_debit_amount_month,
+    current_investment,
+    category_wise,
+    avg_eod_balance,
+)
 from moniez.utils import fetch_price
 from moniez.stocks_data import LARGE_CAP, MID_CAP, SMALL_CAP
 from moniez.recommendations import (
@@ -77,6 +82,8 @@ class Profile(APIView):
         reference_id = request.data["reference_id"]
         data = profile(tracking_id=tracking_id, reference_id=reference_id)
         return Response({"data": data})
+
+
 class EODMonthBalance(APIView):
     def post(self, request):
         tracking_id = request.data["tracking_id"]
@@ -88,7 +95,7 @@ class EODMonthBalance(APIView):
 class CreditDebitRatioMonthly(APIView):
     """Monthly Credit to Debit Ratio"""
 
-    def get(self, request):
+    def post(self, request):
         tracking_id = request.data["tracking_id"]
         reference_id = request.data["reference_id"]
         data = avg_debit_amount_month(
@@ -119,7 +126,7 @@ class CurrentInvestment(APIView):
 class CategoryWise(APIView):
     """Category wise"""
 
-    def get(self, request):
+    def post(self, request):
         tracking_id = request.data["tracking_id"]
         refrence_id = request.data["reference_id"]
         data = category_wise(tracking_id=tracking_id, reference_id=refrence_id)
