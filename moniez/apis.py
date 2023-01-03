@@ -116,10 +116,11 @@ class Stock(APIView):
 class CurrentInvestment(APIView):
     """Category wise"""
 
-    def get(self, request):
+    def post(self, request):
         tracking_id = request.data["tracking_id"]
         refrence_id = request.data["reference_id"]
         data = current_investment(tracking_id=tracking_id, reference_id=refrence_id)
+        print(data)
         return Response(data)
 
 
