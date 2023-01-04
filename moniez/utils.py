@@ -81,9 +81,11 @@ def initiate_consent(phone_number, tracking_id):
 def profile(tracking_id, reference_id):
     data = fetch_analytics_data(tracking_id=tracking_id, reference_id=reference_id)
     dataHolder = data["accounts"][0]["data"]["Profile"]["Holders"]["Holder"]
-    bank_accounf = data["accounts"][0]["data"]["maskedAccNumber"]
+    bank_account = data["accounts"][0]["data"]["maskedAccNumber"]
     bank_balance = data["accounts"][0]["data"]["Summary"]["currentBalance"]
-    res = {"data": dataHolder, "bank_account": bank_accounf, "balance": bank_balance}
+    dataHolder[0]["bank_account"] = bank_account
+    dataHolder[0]["bank_balance"] = bank_balance
+    res = {"data": dataHolder}
 
     return res
 
@@ -136,7 +138,7 @@ def current_investment(tracking_id, reference_id):
             "crypto": crypto,
             "Stocks": Stocks,
             "Commodities": Commodities,
-            "total_sum": round(mutual_fund+crypto+Stocks+Commodities,0)
+            "total_sum": round(mutual_fund + crypto + Stocks + Commodities, 0),
         }
     except:
         pass
