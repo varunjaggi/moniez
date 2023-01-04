@@ -171,6 +171,44 @@ ALL_INVESTMENT_OPTIONS = {
             "five_year": "22.9%",
         },
     ],
+    "indian_stocks":[
+ {
+   "Name": "RELIANCE INDUSTRIES LTD.",
+   "price": "2,516.65"
+ },
+ {
+   "Name": "TATA CONSULTANCY SERVICES LTD.",
+   "price": "115.45"
+ },
+ {
+   "Name": "HDFC BANK LTD.",
+   "price": "115.45"
+ },
+ {
+   "Name": "INFOSYS LTD.",
+   "price": "115.45"
+ },
+ {
+   "Name": "HINDUSTAN UNILEVER LTD.",
+   "price": "115.45"
+ },
+ {
+   "Name": "ICICI BANK LTD.",
+   "price": "115.45"
+ },
+ {
+   "Name": "LIFE INSURANCE CORPORATION OF",
+   "price": "115.45"
+ },
+ {
+   "Name": "STATE BANK OF INDIA",
+   "price": "115.45"
+ },
+ {
+   "Name": "HOUSING DEVELOPMENT FINANCE CO",
+   "price": "115.45"
+ }
+],
     "crypto": [
         {"name": "Bitcoin", "price": "1439600", "category": "large_cap"},
         {"name": "Ethereum", "price": "102831", "category": "large_cap"},
@@ -327,6 +365,7 @@ HIGH_RISK = {
             "five_year": "190.15%",
         },
     ],
+    "indian_stocks":[]
     "crypto": [
         {"name": "Bitcoin", "price": "1439600", "category": "large_cap"},
         {"name": "Ethereum", "price": "102831", "category": "large_cap"},
