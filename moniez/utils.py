@@ -63,7 +63,7 @@ def initiate_consent(phone_number, tracking_id):
             "vuaId": str(phone_number) + "@dashboard-aa-uat",
             "templateType": "ONETIME",
             "trackingId": tracking_id,
-            "redirectionUrl": "https://baseurl.com/profile",
+            "redirectionUrl": "https://moniez-bob.carrd.co/",
         }
     )
     headers = HEADERS
