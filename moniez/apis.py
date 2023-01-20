@@ -45,28 +45,44 @@ class RecommendationView(APIView):
 
             average_risk_score = risk_appetite_value
 
+            if average_risk_score >= 0 and average_risk_score < 0.3:
+                # equity, large cap crypto, stocks
+                data = VERY_LOW_RISK
+
+            elif average_risk_score >= 0.3 and average_risk_score < 0.5:
+                # equity + hybrid, nft, defi and metaverse, stocks
+                data = LOW_RISK
+
+            elif average_risk_score >= 0.5 and average_risk_score < 0.8:
+                # hybrid + debt, rd, fd, ppf, nps
+                data = MID_RISK
+
+            elif average_risk_score >= 0.8 and average_risk_score < 1:
+                # rd, ppf
+                data = HIGH_RISK
+
         else:
             debit_to_credit_ratio = 1 - credit_to_debit_ratio
 
             average_risk_score = (debit_to_credit_ratio + risk_appetite_value) / 2
 
-        data = HIGH_RISK
-
-        if average_risk_score >= 0 and average_risk_score < 0.3:
-            # equity, large cap crypto, stocks
             data = HIGH_RISK
 
-        elif average_risk_score >= 0.3 and average_risk_score < 0.5:
-            # equity + hybrid, nft, defi and metaverse, stocks
-            data = MID_RISK
+            if average_risk_score >= 0 and average_risk_score < 0.3:
+                # equity, large cap crypto, stocks
+                data = HIGH_RISK
 
-        elif average_risk_score >= 0.5 and average_risk_score < 0.8:
-            # hybrid + debt, rd, fd, ppf, nps
-            data = LOW_RISK
+            elif average_risk_score >= 0.3 and average_risk_score < 0.5:
+                # equity + hybrid, nft, defi and metaverse, stocks
+                data = MID_RISK
 
-        elif average_risk_score >= 0.8 and average_risk_score < 1:
-            # rd, ppf
-            data = VERY_LOW_RISK
+            elif average_risk_score >= 0.5 and average_risk_score < 0.8:
+                # hybrid + debt, rd, fd, ppf, nps
+                data = LOW_RISK
+
+            elif average_risk_score >= 0.8 and average_risk_score < 1:
+                # rd, ppf
+                data = VERY_LOW_RISK
 
         return Response({"data": data})
 
